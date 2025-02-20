@@ -1,0 +1,83 @@
+:root {
+    --bullet-color: #CD4128;
+    --item-color: white;
+    --bg-color: black;
+    --sc-color: #C0C0C0;
+
+
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Press Start 2P", serif;
+    font-size: 7px;
+    background-color: var(--bg-color);
+    color: var(--sc-color);
+
+}
+
+#main-frame {
+    display: flex;
+    width: 85vmin;
+    height: 85vmin;
+    margin: auto;
+    border: 2px solid white;
+    padding: 20px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+#game-header {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#remaining-time {
+    display: flex;
+    align-items: center;
+}
+
+#remaining-time img {
+    width: 20%;
+    height: 20%;
+    margin-left: 10px;
+}
+
+#game-lives {
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid var(--item-color);
+    margin: 10px 0px;
+}
+
+#game-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+}
+
+#game-enemies {
+    display: grid;
+  grid-template-columns: repeat(6, 1fr); gap: 10px;
+}
+#game-enemies img {
+    width: 100%;
+  height: auto;
+}
+#bullets {
+display: none;
+}
+
+#game-warship img {
+    width: 10%;
+  height: auto;
+}
