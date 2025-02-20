@@ -38,7 +38,7 @@ body {
 
 #remaining-time {
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 
 #remaining-time img {
@@ -67,17 +67,22 @@ hr {
 
 #game-enemies {
     display: grid;
-  grid-template-columns: repeat(6, 1fr); gap: 10px;
-}
-#game-enemies img {
-    width: 100%;
-  height: auto;
-}
-#bullets {
-display: none;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
 }
 
-#game-warship img {
+#game-enemies img {
+    width: 100%;
+    height: auto;
+}
+
+#game-bullets {
+    display: none;
+}
+
+#game-warship {
+    position: relative;
     width: 10%;
-  height: auto;
+    height: auto;
+    left: 0px;
 }
