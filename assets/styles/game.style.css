@@ -3,8 +3,6 @@
     --item-color: white;
     --bg-color: black;
     --sc-color: #C0C0C0;
-
-
 }
 
 body {
@@ -14,14 +12,13 @@ body {
     font-size: 7px;
     background-color: var(--bg-color);
     color: var(--sc-color);
-
 }
 
 #main-frame {
     display: flex;
     width: 85vmin;
     height: 85vmin;
-    margin: auto;
+    margin: 60px auto;
     border: 2px solid white;
     padding: 20px;
     flex-wrap: wrap;
@@ -69,6 +66,7 @@ hr {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
+    position: relative;
 }
 
 #game-enemies img {
