@@ -5,16 +5,25 @@ import { moveWarShip, shoot } from "./move.js"
 const enemies = document.getElementById('game-enemies');
 const frame = document.getElementById('main-frame');
 
-let enemiesStep = 10
+let enemiesStepX = 10;
+let enemiesStepY = 10;
+
 setInterval(() => {
-    let currentLeft = parseInt(enemies.style.left.slice(0, enemies.style.left.length - 2)) || 0;
-    if (currentLeft > frame.offsetWidth - enemies.offsetWidth - 40) {
-        enemiesStep *= -1
-    } else if (currentLeft < 0) {
-        enemiesStep *= -1
+    let currentX = parseInt(enemies.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    let currentY = parseInt(enemies.style.transform.replace('translateY(', '').replace('px)', '')) || 0;
+
+    if (currentX > frame.offsetWidth - enemies.offsetWidth - 40 || currentX < 0) {
+        enemiesStepX *= -1;
     }
-    enemies.style.left = `${currentLeft + enemiesStep}px`;
+
+    if (currentX === 0) {
+        enemiesStepY += 10;
+    }
+
+    enemies.style.transform = `translateX(${currentX + enemiesStepX}px) translateY(${currentY + enemiesStepY}px)`;
 }, 100);
+
+
 
 document.addEventListener(
     "keydown",

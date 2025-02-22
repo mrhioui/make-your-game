@@ -75,7 +75,7 @@ hr {
 }
 
 #game-bullets {
-    display: none;
+    display: block;
 }
 
 #game-warship {
