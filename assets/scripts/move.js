@@ -3,6 +3,7 @@
 export { moveWarShip, shoot }
 
 const frame = document.getElementById('main-frame');
+const bullets = document.getElementById('game-bullets');
 const warShip = document.getElementById('game-warship');
 
 let warShipX = frame.offsetWidth / 2 - 30;
@@ -18,26 +19,14 @@ const moveWarShip = (move) => {
     }
     warShip.style.transform = `translateX(${warShipX}px)`;
 };
-// const frame = document.getElementById('main-frame');
-// const warShip = document.getElementById('game-warship');
-// warShip.style.left = `${frame.offsetWidth / 2 - 30}px`;
-// const bullets = document.getElementById('game-bullets');
-
-// const moveWarShip = (move) => {
-//     if (move == "right" && (parseInt(warShip.style.left.slice(0, warShip.style.left.length - 2)) < frame.offsetWidth - 2 * warShip.offsetWidth - 10)) {
-//         warShip.style.left = `${parseInt(warShip.style.left.slice(0, warShip.style.left.length - 2)) + 10}px`
-//     } else if (parseInt(warShip.style.left.slice(0, warShip.style.left.length - 2)) > 0) {
-//         warShip.style.left = `${parseInt(warShip.style.left.slice(0, warShip.style.left.length - 2)) - 10}px`
-//     }
-// }
 
 const shoot = () => {
     let img = document.createElement('img');
     img.src = '/assets/imgs/bullet.png';
-    img.style.position = 'absolute';
-    console.log(warShip.x);
+    let rect = warShip.getBoundingClientRect()
+    // img.style.left = rect.left
+    // console.log(rect.left, rect.top);
     
-    img.style.transform = `translateX(${warShip.x}px)`;
-    img.style.transform = `translateY(${warShip.y}px)`;
-    frame.appendChild(img)
+    img.style.transform= `translate(${rect.x, rect.y})`
+    bullets.appendChild(img)
 }

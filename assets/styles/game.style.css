@@ -16,70 +16,76 @@ body {
 
 #main-frame {
     display: flex;
-    width: 85vmin;
-    height: 85vmin;
-    margin: 60px auto;
+    width: 850px;
+    height: 638px;
+    margin: 100px auto;
     border: 2px solid white;
     padding: 20px;
     flex-wrap: wrap;
     align-content: flex-start;
 }
 
-#game-header {
-    margin: 0;
-    display: flex;
-    width: 100%;
-    align-items: flex-start;
-    justify-content: space-between;
-}
+   #game-header {
+        margin: 0;
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 
-#remaining-time {
-    display: flex;
-    align-items: baseline;
-}
+    #remaining-time {
+        display: flex;
+        align-items: baseline;
+    }
 
-#remaining-time img {
-    width: 20%;
-    height: 20%;
-    margin-left: 10px;
-}
+    #remaining-time img {
+        width: 16px;
+        height: 16px;
+        margin-left: 10px;
+    }
 
-#game-lives {
-    display: flex;
-    align-items: center;
-}
+    #game-lives {
+        display: flex;
+        align-items: center;
+    }
 
-hr {
-    width: 100%;
-    border: 1px solid var(--item-color);
-    margin: 10px 0px;
-}
+    #game-lives img {
+        width: 30px;
+        height: 30px;
+    }
+    hr {
+        width: 100%;
+        border: 1px solid var(--item-color);
+        margin: 10px 0px;
+    }
 
-#game-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 90%;
-}
+    #game-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 92%;
+    }
 
-#game-enemies {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    position: relative;
-}
+    #game-enemies {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        position: relative;
+    }
 
-#game-enemies img {
-    width: 100%;
-    height: auto;
-}
+    #game-enemies img {
+        width: 100%;
+        height: auto;
+    }
 
-#game-bullets {
-    display: block;
-}
+    #game-bullets {
+        /* display: block; */
+        position: absolute; 
+        z-index: 1; 
+    }
 
-#game-warship {
-    position: relative;
-    width: 10%;
-    height: auto;
-}
+    #game-warship {
+        position: relative;
+        width: 10%;
+        height: auto;
+    } 

@@ -2,6 +2,10 @@
 
 import { moveWarShip, shoot } from "./move.js"
 
+console.log("Document width (viewport):", document.documentElement.clientWidth);
+console.log("Document height (viewport):", document.documentElement.clientHeight);
+
+
 const enemies = document.getElementById('game-enemies');
 const frame = document.getElementById('main-frame');
 
