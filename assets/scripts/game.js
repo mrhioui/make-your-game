@@ -34,10 +34,10 @@ document.addEventListener(
     (event) => {
         switch (event.key) {
             case 'ArrowRight':
-                moveWarShip('right')
+                requestAnimationFrame(moveWarShip('right'))
                 break
             case 'ArrowLeft':
-                moveWarShip('left')
+                requestAnimationFrame(moveWarShip('left'))
                 break
             case 'p':
                 console.log('pause')
