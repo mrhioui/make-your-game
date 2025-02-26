@@ -27,7 +27,7 @@ body {
 
 #game-header {
     margin: 0;
-    display: flex;
+    display: none;
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
@@ -61,7 +61,7 @@ hr {
 }
 
 #game-body {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     height: 92%;
@@ -90,6 +90,10 @@ hr {
     width: 48px;
     height: 48px;
     z-index: 2;
+}
+
+#line{
+    display: none;
 }
 
 #start-menu {}
