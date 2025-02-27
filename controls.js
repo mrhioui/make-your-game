@@ -36,15 +36,10 @@ const keysSetup = (keys) => {
                 console.log('Shoot')
                 bullets.push(
                     new Bullet({
-                        position: {
-                            x: warShip.position.x+13,
-                            y: warShip.position.y+20
-                        },
-                        speed: {
-                            x: 0,
-                            y: -5
-                        }
-                    })
+                        x: warShip.position.x + 13,
+                        y: warShip.position.y + 20
+                    }, -5
+                    )
                 )
                 break
 

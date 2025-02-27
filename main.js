@@ -4,8 +4,8 @@ const frame = document.getElementById('main-frame')
 const ctx = frame.getContext('2d')
 
 // default dimensions
-frame.width = 850
-frame.height = 638
+frame.width = 1150
+frame.height = 850
 // frame.width = window.innerWidth
 // frame.height = window.innerHeight
 
@@ -39,11 +39,11 @@ const main = () => {
 
     // set moving speed and set boundries limits
     if (keys.left && warShip.position.x >= 15) {
-        warShip.speed.x = -10
+        warShip.speedX = -10
     } else if (keys.right && warShip.position.x + warShip.width <= frame.width - 15) {
-        warShip.speed.x = 10
+        warShip.speedX = 10
     } else {
-        warShip.speed.x = 0
+        warShip.speedX = 0
     }
 }
 
