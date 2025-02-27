@@ -1,5 +1,6 @@
 import { frame, ctx } from "./main.js"
-export {Warship}
+export {warShip}
+
 class Warship {
     constructor() {
 
@@ -13,16 +14,21 @@ class Warship {
                 y: frame.height - this.height - 15
             }
         }
-        this.speedX = 0
+        this.speed = {
+            x: 0,
+            y: 0
+        }
     }
 
     draw() {
         ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
     }
-    update() {
+    move() {
         if (this.image && this.position) {
             this.draw()
-            this.position.x += this.speedX
+            this.position.x += this.speed.x
         }
     }
 }
+
+const warShip = new Warship()
