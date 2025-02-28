@@ -16,7 +16,21 @@
             background-color: black;
         }
         #main-frame {
+            position: relative;
+            width: 800px;
+            height: 600px;
             border: 2px solid white;
+        }
+
+        #invaders {
+            width: 100%;
+            height: auto;
+        }
+        .invader {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: green;
         }
         
     </style>
@@ -24,6 +38,7 @@
 
 <body>
     <div id="main-frame">
+        <div id="invaders-grid"></div>
         <img id="war-ship" src="/imgs/warship.png" alt="warship">
     </div>
     <script src="/main.js" type="module"></script>
