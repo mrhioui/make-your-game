@@ -1,56 +1,50 @@
-// get game main frame
-const frame = document.getElementById('main-frame')
-// create a new 2d context
-const ctx = frame.getContext('2d')
+import { controlsSetup } from './controls.js'
 
-// default dimensions
-frame.width = 1150
-frame.height = 850
-// frame.width = window.innerWidth
-// frame.height = window.innerHeight
-
-
-
-export { frame, ctx, bullets }
-import { keysSetup, bullets } from "./controls.js"
-import { warShip } from "./warship.js"
-
-const keys = {
-    left: false,
-    right: false,
-    shoot: false
+const frame = {
+    htmlElem: document.getElementById('main-frame'),
+    width: 1150,
+    height: 850
 }
 
+const warShip = {
+    htmlElem: document.getElementById('war-ship'),
+    position: {
+        x: 1150 / 2 - 48 / 2,
+        y: 850 - 48 - 15
+    },
+    speedX: 0
+}
 
-const main = () => {
-    // recall func but depends on the machine how many fps supports
-    requestAnimationFrame(main)
+const keys = { left: false, right: false, shoot: false }
 
-    // clear the main frame with black
-    ctx.fillStyle = 'black'
-    ctx.fillRect(0, 0, frame.width, frame.height)
+const moveWarship = () => {
+    warShip.position.x += warShip.speedX
+    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
+}
+const init = () => {
+    frame.htmlElem.style.width = "1150px"
+    frame.htmlElem.style.height = "850px"
+    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
 
-    // move the warship left/right
-    bullets.forEach(bullet => {
-        bullet.move()
-    })
-    warShip.move()
+    // Setup keyboard event listeners
+    controlsSetup(keys)
 
+    gameLoop()
+}
 
-    // set moving speed and set boundries limits
+const gameLoop = () => {
+    requestAnimationFrame(gameLoop)
+    moveWarship()
+
     if (keys.left && warShip.position.x >= 15) {
         warShip.speedX = -10
-    } else if (keys.right && warShip.position.x + warShip.width <= frame.width - 15) {
+    } else if (keys.right && warShip.position.x + 48 <= 1150 - 15) {
         warShip.speedX = 10
     } else {
         warShip.speedX = 0
     }
 }
 
-// setup keyboard event listners
-keysSetup(keys)
 
-main() // entry point
-
-
+init() // Entry point
 

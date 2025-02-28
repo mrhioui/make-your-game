@@ -1,10 +1,8 @@
-export { keysSetup, bullets }
-import { Bullet } from "./bullets.js"
-import { warShip } from "./warship.js"
+export { controlsSetup }
 
-const bullets = []
+// const bullets = []
 
-const keysSetup = (keys) => {
+const controlsSetup = (keys) => {
     document.addEventListener('keydown', ({ code }) => {
         switch (code) {
             case 'KeyP':
@@ -34,15 +32,15 @@ const keysSetup = (keys) => {
             case 'Space':
                 keys.shoot = true
                 console.log('Shoot')
-                bullets.push(
-                    new Bullet({
-                        x: warShip.position.x + 13,
-                        y: warShip.position.y + 20
-                    }, -5
-                    )
-                )
+                // bullets.push(
+                //     new Bullet({
+                //         x: warShip.position.x + 13,
+                //         y: warShip.position.y + 20
+                //     }, -10
+                //     )
+                // )
+                // console.log(bullets);
                 break
-
             default:
                 console.log(code)
                 break
