@@ -95,7 +95,6 @@ function createInvaders() {
   }
 
 const init = () => {
-    
     frame.htmlElem.style.width = `${frame.width}px`
     frame.htmlElem.style.height = `${frame.height}px`
     createInvaders()

@@ -46,7 +46,6 @@ const controlsSetup = (keys) => {
                     speedY: -7
                 }
                 bullet.htmlElem.src = '/imgs/bullet.png'
-                bullet.htmlElem.style.position = 'absolute'
                 frame.htmlElem.appendChild(bullet.htmlElem)
                 bullets.push(bullet)
                 console.log(bullets);
