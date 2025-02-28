@@ -1,3 +1,5 @@
+import { frame, warShip, bullets } from "./main.js"
+
 export { controlsSetup }
 
 // const bullets = []
@@ -32,14 +34,22 @@ const controlsSetup = (keys) => {
             case 'Space':
                 keys.shoot = true
                 console.log('Shoot')
-                // bullets.push(
-                //     new Bullet({
-                //         x: warShip.position.x + 13,
-                //         y: warShip.position.y + 20
-                //     }, -10
-                //     )
-                // )
-                // console.log(bullets);
+
+                const bullet = {
+                    htmlElem: document.createElement('img'),
+                    width: 22,
+                    height: 22,
+                    position: {
+                        x: warShip.position.x-warShip.width +13,
+                        y: warShip.position.y + 20
+                    },
+                    speedY: -7
+                }
+                bullet.htmlElem.src = '/imgs/bullet.png'
+                bullet.htmlElem.style.position = 'absolute'
+                frame.htmlElem.appendChild(bullet.htmlElem)
+                bullets.push(bullet)
+                console.log(bullets);
                 break
             default:
                 console.log(code)
