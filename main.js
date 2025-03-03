@@ -86,7 +86,7 @@ function createInvaders() {
           }
         }
         invader.htmlElem.src = '/imgs/invader.png'
-        invader.htmlElem.style.position = 'absolute'
+        invader.htmlElem.classList.add("invader")
         invader.htmlElem.style.transform = `translate(${invader.position.x}px, ${invader.position.y}px)`
         grid.appendChild(invader.htmlElem)
         invaders.push(invader)
@@ -113,7 +113,7 @@ const gameLoop = () => {
     bullets.forEach((bullet, bltIndex) => {
 
         if (bullet.htmlElem.getBoundingClientRect().y <= frame.htmlElem.getBoundingClientRect().top) {
-            console.log(frame.height, '>>>', frame.htmlElem.getBoundingClientRect().top)
+            // console.log(frame.height, '>>>', frame.htmlElem.getBoundingClientRect().top)
             bullet.htmlElem.remove()
             bullets.splice(bltIndex, 1)
         } else {

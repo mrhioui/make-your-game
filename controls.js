@@ -40,15 +40,16 @@ const controlsSetup = (keys) => {
                     width: 22,
                     height: 22,
                     position: {
-                        x: warShip.position.x-warShip.width +13,
+                        x: warShip.position.x+13,
                         y: warShip.position.y + 20
                     },
                     speedY: -7
                 }
                 bullet.htmlElem.src = '/imgs/bullet.png'
+                bullet.htmlElem.classList.add("bullet")
                 frame.htmlElem.appendChild(bullet.htmlElem)
                 bullets.push(bullet)
-                console.log(bullets);
+                console.log(bullet);
                 break
             default:
                 console.log(code)
