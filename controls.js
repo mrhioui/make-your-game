@@ -43,7 +43,7 @@ const controlsSetup = (keys) => {
                         x: warShip.position.x+13,
                         y: warShip.position.y + 20
                     },
-                    speedY: -7
+                    speedY: -5
                 }
                 bullet.htmlElem.src = '/imgs/bullet.png'
                 bullet.htmlElem.classList.add("bullet")

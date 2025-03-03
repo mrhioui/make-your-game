@@ -26,7 +26,7 @@ const keys = { left: false, right: false, shoot: false }
 const invaders = []
 const invaderRows = 3
 const invaderCols = 8
-const invaderSpeedX = 7
+const invaderSpeedX = 3
 const invaderSpeedY = 2
 let invaderDirection = 1
 
@@ -123,9 +123,9 @@ const gameLoop = () => {
     moveWarship()
 
     if (keys.left && warShip.position.x >= 15) {
-        warShip.speedX = -10
+        warShip.speedX = -5
     } else if (keys.right && warShip.position.x + 48 <= frame.width - 15) {
-        warShip.speedX = 10
+        warShip.speedX = 5
     } else {
         warShip.speedX = 0
     }
