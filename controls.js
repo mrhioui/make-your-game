@@ -2,97 +2,64 @@ import { frame, warShip, bullets } from "./main.js"
 
 export { controlsSetup }
 
-// const bullets = []
-
 const controlsSetup = (keys) => {
-    document.addEventListener('keydown', ({ code }) => {
-        switch (code) {
-            case 'KeyP':
-                console.log('Pause')
+    document.addEventListener("keydown", handleKeyEvent)
+    document.addEventListener("keyup", handleKeyEvent)
+
+    function handleKeyEvent(event) {
+        const isKeyDown = event.type === "keydown"
+
+        switch (event.code) {
+            case "KeyP":
+                if (isKeyDown) console.log("Pause")
                 break
 
-            case 'KeyR':
-                console.log('Restart')
+            case "KeyR":
+                if (isKeyDown) console.log("Restart")
                 break
 
-            case 'Enter':
-                console.log('Continue')
+            case "Enter":
+                if (isKeyDown) console.log("Continue")
                 break
 
-            case 'KeyA':
-            case 'ArrowLeft':
-                keys.left = true
-                console.log('move Left')
+            case "KeyA":
+            case "ArrowLeft":
+                keys.left = isKeyDown
+                console.log("Move Left")
                 break
 
-            case 'KeyS':
-            case 'ArrowRight':
-                keys.right = true
-                console.log('move Right')
+            case "KeyS":
+            case "ArrowRight":
+                keys.right = isKeyDown
+                console.log("Move Right")
                 break
 
-            case 'Space':
-                keys.shoot = true
-                console.log('Shoot')
+            case "Space":
+                keys.shoot = isKeyDown
+                console.log("Shoot")
 
-                const bullet = {
-                    htmlElem: document.createElement('img'),
-                    width: 22,
-                    height: 22,
-                    position: {
-                        x: warShip.position.x+13,
-                        y: warShip.position.y + 20
-                    },
-                    speedY: -5
+                if (isKeyDown) {
+                    const bullet = {
+                        htmlElem: document.createElement("img"),
+                        width: 22,
+                        height: 22,
+                        position: {
+                            x: warShip.position.x + 13,
+                            y: warShip.position.y + 20,
+                        },
+                        speedY: -5,
+                    }
+                    bullet.htmlElem.src = "/imgs/bullet.png"
+                    bullet.htmlElem.classList.add("bullet")
+                    frame.htmlElem.appendChild(bullet.htmlElem)
+                    bullets.push(bullet)
+                    console.log(bullet)
                 }
-                bullet.htmlElem.src = '/imgs/bullet.png'
-                bullet.htmlElem.classList.add("bullet")
-                frame.htmlElem.appendChild(bullet.htmlElem)
-                bullets.push(bullet)
-                console.log(bullet);
-                break
-            default:
-                console.log(code)
-                break
-
-        }
-    })
-    document.addEventListener('keyup', ({ code }) => {
-        switch (code) {
-            case 'KeyP':
-                console.log('Pause')
-                break
-
-            case 'KeyR':
-                console.log('Restart')
-                break
-
-            case 'Enter':
-                console.log('Continue')
-                break
-
-            case 'KeyA':
-            case 'ArrowLeft':
-                keys.left = false
-                console.log('move Left')
-                break
-
-            case 'KeyS':
-            case 'ArrowRight':
-                keys.right = false
-                console.log('move Right')
-                break
-
-            case 'Space':
-                keys.shoot = false
-                console.log('Shoot')
                 break
 
             default:
-                console.log(code)
+                console.log(event.code)
                 break
-
         }
-    })
+    }
 }
-
