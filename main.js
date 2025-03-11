@@ -31,6 +31,11 @@ const invaderSpeedX = 3
 const invaderSpeedY = 2
 let invaderDirection = 1
 
+let score = document.getElementById("game-score")
+let scoreNbr = 0
+
+let lives = document.querySelectorAll("#game-lives img");
+
 
 function moveInvaders() {
   let edgeReached = false
@@ -176,9 +181,12 @@ const gameLoop = () => {
   for (let i = 0; i < bullets.length; i++) {
     for (let j = 0; j < invaders.length; j++) {
       if (checkCollisionInvaderBullet(bullets[i], invaders[j])) {
-        console.log("Collision detected!");
+        scoreNbr += 10
+        score.innerText = scoreNbr
+
         bullets[i].htmlElem.remove()
         bullets.splice(i, 1)
+
         invaders[j].htmlElem.remove()
         invaders.splice(j, 1)
       }
@@ -187,9 +195,11 @@ const gameLoop = () => {
 
   for (let i = 0; i < invaders_bullets.length; i++) {
     if (checkCollisionWarShipBullet(invaders_bullets[i])) {
-      console.log("Collision detected!");
+      
+
       invaders_bullets[i].htmlElem.remove()
       invaders_bullets.splice(i, 1)
+
       warShip.htmlElem.remove()
     }
   }
