@@ -1,0 +1,87 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    font-family: "Press Start 2P", system-ui;
+    font-size: 10px;
+}
+
+#header {
+    margin: 0px 0px 0px 30px;
+    width: 95%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#remaining-time img {
+    width: 20px;
+    height: 22px;
+}
+
+#game-lives img {
+    width: 40px;
+    height: 40px;
+    margin-top: 3px;
+}
+
+hr {
+    width: 95%;
+    height: 20;
+    margin-bottom: 20px;
+}
+
+#invaders-grid {
+    z-index: 1;
+}
+
+.bullet {
+    position: absolute;
+    z-index: 1;
+}
+
+#menu {
+    text-align: center;
+    color: white;
+    background-color: black;
+    text-transform: uppercase;
+    padding-top: 3rem;
+    width: 100%;
+
+}
+
+#menu h1 {
+    font-size: 3rem;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: 0.5rem;
+    line-height: 1.2;
+    text-shadow: 0 0 10px white(0, 255, 0, 0.5);
+}
+
+.controls {
+    color: gray;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    line-height: 3;
+}
+
+.controls div {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.controls div .square {
+    padding: 10px 20px;
+    border: solid gray;
+    border-radius: 15px;
+}
+
+#start-message {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    animation: blink 1s infinite;
+}

@@ -1,0 +1,3 @@
+* invadersShout and timer noworks when do pause
+* bullets heading and stoped when do pause
+* restart
