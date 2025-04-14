@@ -15,47 +15,9 @@ frame.htmlElem.style.height = `${frame.height}px`;
 frame.htmlElem.style.border = "2px solid white";
 
 
-////////////////////////////////////////////////////////////
-// event listener for resize 
-// window.addEventListener('resize', () => {
-//     frame.width = window.innerWidth / 2;
-//     frame.height = window.innerHeight - (window.innerHeight / 4);
-
-//     frame.htmlElem.style.width = `${frame.width}px`;
-//     frame.htmlElem.style.height = `${frame.height}px`;
-
-//     warShip.position.x = (frame.width - warShip.width) / 2;
-//     warShip.position.y = frame.height - ((warShip.height * 4) - 25);
-//     warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`;
-
-//     // Optionally resize warship based on frame width (scaling factor)
-//     const scale = frame.width / 800;
-//     const newWarshipSize = 48 * scale;
-//     warShip.width = newWarshipSize;
-//     warShip.height = newWarshipSize;
-//     warShip.htmlElem.style.width = `${newWarshipSize}px`;
-//     warShip.htmlElem.style.height = `${newWarshipSize}px`;
-
-//     // Resize & reposition invaders
-//     invaders.forEach(invader => {
-//         invader.width = newWarshipSize;
-//         invader.height = newWarshipSize;
-//         invader.htmlElem.style.width = `${newWarshipSize}px`;
-//         invader.htmlElem.style.height = `${newWarshipSize}px`;
-
-//         // Optionally re-layout positions based on grid
-//         const index = invaders.indexOf(invader);
-//         const row = Math.floor(index / invaderCols);
-//         const col = index % invaderCols;
-//         const gap = 15 * scale;
-//         invader.position.x = col * (invader.width + gap);
-//         invader.position.y = row * (invader.height + gap);
-//         invader.htmlElem.style.transform = `translate(${invader.position.x}px, ${invader.position.y}px)`;
-//     });
-// });
 
 
-////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 // create header
 const header = {
   htmlElem: (() => {
