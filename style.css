@@ -15,18 +15,18 @@ body {
     width: 95%;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
+    font-size: 1vmin;
 }
 
 #remaining-time img {
-    width: 20px;
-    height: 22px;
+    width: 2vmin;
+    height: 2vmin;
 }
 
 #game-lives img {
-    width: 40px;
-    height: 40px;
-    margin-top: 3px;
+    width: 5vmin;
+    height: 5vmin;
 }
 
 hr {
@@ -49,39 +49,38 @@ hr {
     color: white;
     background-color: black;
     text-transform: uppercase;
-    padding-top: 3rem;
+    padding-top: 4vmin;
     width: 100%;
 
 }
 
 #menu h1 {
-    font-size: 3rem;
-    margin: 0 0 1.5rem 0;
+    font-size: 7vmin;
+    margin: 0 0 1vmin 0;
     letter-spacing: 0.5rem;
     line-height: 1.2;
-    text-shadow: 0 0 10px white(0, 255, 0, 0.5);
+    /* text-shadow: 0 0 1vmin white(0, 255, 0, 0.5); */
 }
 
 .controls {
     color: gray;
-    margin: 2rem 0;
-    font-size: 1.2rem;
+    margin: 2vmin ;
+    font-size: 2vmin;
     line-height: 3;
 }
 
 .controls div {
-    width: fit-content;
     margin: 0 auto;
 }
 
 .controls div .square {
-    padding: 10px 20px;
+    padding: 1vmin 2vmin;
     border: solid gray;
-    border-radius: 15px;
+    border-radius: 3vmin;
 }
 
 #start-message {
-    margin-top: 2rem;
-    font-size: 1.3rem;
+    margin-top: 7vmin;
+    font-size: 3vmin;
     animation: blink 1s infinite;
 }
