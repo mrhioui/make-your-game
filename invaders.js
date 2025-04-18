@@ -1,4 +1,4 @@
-export {createInvaders,invadersShoot,moveInvaders,invaders,invaders_bullets}
+export { createInvaders, invadersShoot, moveInvaders, invaders, invaders_bullets }
 import { frame } from "./frame.js"
 import { keys } from "./main.js"
 
@@ -8,8 +8,8 @@ const invaders_bullets = []
 const invadersProprietys = {
     Rows: 3,
     Cols: 8,
-    SpeedX: 3,
-    SpeedY: 2,
+    SpeedX: 4,
+    SpeedY: 3,
     Direction: 1
 }
 
@@ -36,6 +36,7 @@ function createInvaders() {
             invader.htmlElem.classList.add("invader")
             invader.htmlElem.style.position = 'absolute'
             grid.appendChild(invader.htmlElem)
+            invader.htmlElem.style.transform = `translate(${invader.position.x}px, ${invader.position.y}px)`
             invaders.push(invader)
         }
     }
@@ -84,7 +85,7 @@ const invadersShoot = () => {
                     x: invaders[nbr].position.x + 10,
                     y: invaders[nbr].position.y + 40
                 },
-                speedY: 5
+                speedY: 7
             }
 
             invader_bullet.htmlElem.src = 'imgs/invader-bullet.png'
@@ -93,5 +94,5 @@ const invadersShoot = () => {
             invader_bullet.htmlElem.style.transform = `translate(${invader_bullet.position.x}px, ${invader_bullet.position.y}px)`
             invaders_bullets.push(invader_bullet)
         }
-    }, invaders.length * 100)
+    }, invaders.length * 50)
 }

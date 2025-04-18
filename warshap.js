@@ -1,6 +1,7 @@
-export { warShip,moveWarship,warshipShoot }
+export { warShip,warshipBullets,moveWarship,warshipShoot }
 import { frame } from "./frame.js";
-import { bullets } from "./main.js";
+
+const warshipBullets = []
 // create warShip
 const warShip = {
     htmlElem: (() => {
@@ -21,6 +22,7 @@ const warShip = {
         y: frame.height - ((48 * 4) - 25)
     },
     speedX: 0
+
 };
 
 
@@ -46,5 +48,5 @@ const warshipShoot = () => {
     bullet.htmlElem.classList.add("bullet")
     bullet.htmlElem.style.transform = `translate(${bullet.position.x}px, ${bullet.position.y}px)`
     frame.htmlElem.appendChild(bullet.htmlElem)
-    bullets.push(bullet)
+    warshipBullets.push(bullet)
 }

@@ -1,15 +1,15 @@
 export { controlsSetup }
 import { menu, frame } from "./frame.js"
 import { createInvaders, invadersShoot, invaders_bullets, invaders } from "./invaders.js"
-import { warShip, warshipShoot } from "./warshap.js"
-import { gameLoop, keys, bullets, scoreNbr,livesNbr } from "./main.js"
+import { warShip, warshipShoot,warshipBullets } from "./warshap.js"
+import { gameLoop, keys,setScore } from "./main.js"
+
+let timePast = 0
 
 
 function controlsSetup(keys) {
     document.addEventListener('keydown', ({ code }) => {
         if (!keys.start) {
-            start()
-            keys.start = true
             return
         }
         switch (code) {
@@ -55,7 +55,10 @@ function controlsSetup(keys) {
                 break
 
             case 'Space':
-                if (!keys.pause) {
+                if (!keys.start) {
+                    start()
+                    keys.start = true
+                } else if (!keys.pause) {
                     warshipShoot()
                 }
                 break
@@ -76,23 +79,30 @@ function controlsSetup(keys) {
 
 
 const start = () => {
-    let message = document.getElementById('start-message')
-    message.style.display = 'none'
     menu.htmlElem.style.display = "none"
     createInvaders()
     invadersShoot()
+    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
     frame.htmlElem.appendChild(warShip.htmlElem);
     timer()
     gameLoop()
 }
 
 const pause = () => {
+    let message = document.getElementById('start-message')
+    message.style.display = 'none'
     menu.htmlElem.style.display = "block"
+
     invaders.forEach((invader) => {
         invader.htmlElem.style.display = 'none'
     })
-    bullets.forEach((bullet) => {
+    invaders_bullets.forEach((bullet) => {
         bullet.htmlElem.style.display = 'none'
+        frame.htmlElem.removeChild(bullet.htmlElem)
+    })
+    warshipBullets.forEach((bullet) => {
+        bullet.htmlElem.style.display = 'none'
+        frame.htmlElem.removeChild(bullet.htmlElem)
     })
     warShip.htmlElem.style.display = 'none'
 }
@@ -106,13 +116,12 @@ const resume = () => {
 }
 
 const restart = () => {
-    document.getElementById('game-score').innerText = scoreNbr;
+    setScore(0)
 
-    livesNbr = 3;
     timePast = 0
     const livesContainer = document.getElementById('game-lives');
     livesContainer.innerHTML = '';
-    for (let i = 0; i < livesNbr; i++) {
+    for (let i = 0; i < 3; i++) {
         const heart = document.createElement('img');
         heart.src = '/imgs/heart.png';
         livesContainer.appendChild(heart);
@@ -121,8 +130,8 @@ const restart = () => {
     invaders.forEach(inv => inv.htmlElem.remove());
     invaders.length = 0;
 
-    bullets.forEach(b => b.htmlElem.remove());
-    bullets.length = 0;
+    warshipBullets.forEach(b => b.htmlElem.remove());
+    warshipBullets.length = 0;
     invaders_bullets.forEach(b => b.htmlElem.remove());
     invaders_bullets.length = 0;
 
@@ -140,7 +149,6 @@ const restart = () => {
 }
 
 // timer
-let timePast = 0
 const timer = () => {
     const timerDisplay = document.getElementById('timer');
 
@@ -149,7 +157,7 @@ const timer = () => {
         const seconds = String(timePast % 60).padStart(2, '0');
         timerDisplay.innerHTML = `${minutes}:${seconds} <img src="/imgs/clock.png" alt="time-icon">`;
 
-        if (keys.pause == false) {
+        if (keys.pause == false && keys.start == true) {
             timePast++;
         }
     };

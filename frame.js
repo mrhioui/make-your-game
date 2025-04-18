@@ -1,5 +1,4 @@
 export { menu, frame }
-import { livesNbr } from "./main.js";
 
 // create frame
 const frame = {
@@ -46,7 +45,8 @@ document.body.appendChild(frame.htmlElem);
 
 const livesContainer = document.getElementById('game-lives');
 livesContainer.innerHTML = '';
-for (let live = 0; live < livesNbr; live++) {
+
+for (let live = 0; live < 3; live++) {
     let htmlLive = document.createElement('img');
     htmlLive.src = '/imgs/heart.png';
     livesContainer.appendChild(htmlLive);
@@ -70,7 +70,7 @@ const StartMenu = `
               <br>
               <div><span class="square">←</span> <span class="square">→</span> to move,<span class="square">space</span> to shoot</div>
           </div>
-          <div id="start-message">press any key to begin</div>
+          <div id="start-message">press space key to begin</div>
           `
 
 menu.htmlElem.innerHTML = StartMenu

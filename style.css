@@ -7,11 +7,11 @@ body {
     background-color: black;
     color: white;
     font-family: "Press Start 2P", system-ui;
-    font-size: 10px;
+    font-size: 1.5vmin;
 }
 
 #header {
-    margin: 0px 0px 0px 30px;
+    margin-left: 3vmin;
     width: 95%;
     display: flex;
     align-items: flex-start;
@@ -31,8 +31,7 @@ body {
 
 hr {
     width: 95%;
-    height: 20;
-    margin-bottom: 20px;
+    margin-bottom: 2vmin;
 }
 
 #invaders-grid {
@@ -51,7 +50,6 @@ hr {
     text-transform: uppercase;
     padding-top: 4vmin;
     width: 100%;
-
 }
 
 #menu h1 {
@@ -59,12 +57,12 @@ hr {
     margin: 0 0 1vmin 0;
     letter-spacing: 0.5rem;
     line-height: 1.2;
-    /* text-shadow: 0 0 1vmin white(0, 255, 0, 0.5); */
+    text-shadow: 0 0 1vmin rgba(0, 255, 0, 0.5);
 }
 
 .controls {
     color: gray;
-    margin: 2vmin ;
+    margin: 2vmin;
     font-size: 2vmin;
     line-height: 3;
 }
@@ -77,6 +75,11 @@ hr {
     padding: 1vmin 2vmin;
     border: solid gray;
     border-radius: 3vmin;
+}
+
+.controls div .square:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
 }
 
 #start-message {

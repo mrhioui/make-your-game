@@ -1,16 +1,12 @@
-export { gameLoop, keys, bullets,scoreNbr,livesNbr
-  
- }
+export { gameLoop, keys, setScore }
 import { controlsSetup } from "./controls.js"
-import { moveWarship,warShip } from "./warshap.js"
-import { moveInvaders,invaders,invaders_bullets } from "./invaders.js"
+import { moveWarship, warShip, warshipBullets } from "./warshap.js"
+import { moveInvaders, invaders, invaders_bullets } from "./invaders.js"
 import { frame } from "./frame.js"
 
 let livesNbr = 3
-let scoreNbr = 0;
-const bullets = []
+let scoreNbr = 0
 const keys = { left: false, right: false, start: false, pause: false }
-
 
 // bullets
 const moveBullet = (bullet) => {
@@ -28,10 +24,48 @@ function checkCollision(obj1, obj2) {
   );
 }
 
-// init
-const init = () => {
-  controlsSetup(keys)
+const setScore = (value) => {
+  scoreNbr = value;
+  document.getElementById('game-score').innerText = scoreNbr;
 }
+
+// winer/loser
+const checkWin = (win) => {
+  const messageElem = document.createElement('div');
+  messageElem.id = 'end-message';
+  messageElem.style.position = 'absolute';
+  messageElem.style.top = '50%';
+  messageElem.style.left = '50%';
+  messageElem.style.transform = 'translate(-50%, -50%)';
+  messageElem.style.padding = '2vmin 4vmin';
+  messageElem.style.background = 'rgba(0, 0, 0, 0.8)';
+  messageElem.style.color = 'white';
+  messageElem.style.fontSize = '4vmin';
+  messageElem.style.border = '0.5vmin solid white';
+  messageElem.style.borderRadius = '2vmin';
+  messageElem.style.zIndex = '1000';
+  messageElem.style.textAlign = 'center';
+
+  invaders.forEach(inv => inv.htmlElem.remove());
+  invaders.length = 0;
+  warshipBullets.forEach(b => b.htmlElem.remove());
+  warshipBullets.length = 0;
+  invaders_bullets.forEach(b => b.htmlElem.remove());
+  invaders_bullets.length = 0;
+  warShip.htmlElem.remove()
+  
+  setScore(0)
+  livesNbr = 3
+
+  if (win) {
+    messageElem.innerText = 'YOU WIN!';
+  } else {
+    messageElem.innerText = 'GAME OVER!';
+  }
+
+  frame.htmlElem.appendChild(messageElem);
+
+};
 
 
 // gameLoop
@@ -42,6 +76,7 @@ const gameLoop = () => {
     moveInvaders()
   }
 
+  // move bullets invader
   invaders_bullets.forEach((bullet, bltIndex) => {
     if (bullet.position.y >= frame.htmlElem.getBoundingClientRect().height - 140) {
       bullet.htmlElem.remove();
@@ -51,10 +86,11 @@ const gameLoop = () => {
     }
   });
 
-  bullets.forEach((bullet, bltIndex) => {
+  // move bullets warship
+  warshipBullets.forEach((bullet, bltIndex) => {
     if (bullet.htmlElem.getBoundingClientRect().y <= frame.htmlElem.getBoundingClientRect().top + 90) {
       bullet.htmlElem.remove()
-      bullets.splice(bltIndex, 1)
+      warshipBullets.splice(bltIndex, 1)
     } else {
       moveBullet(bullet)
     }
@@ -62,29 +98,28 @@ const gameLoop = () => {
 
 
   // collition
-  for (let i = bullets.length - 1; i >= 0; i--) {
+  for (let i = warshipBullets.length - 1; i >= 0; i--) {
     for (let j = invaders.length - 1; j >= 0; j--) {
-      if (checkCollision(bullets[i], invaders[j])) {
+      if (checkCollision(warshipBullets[i], invaders[j])) {
         scoreNbr += 10;
-  
-        let score = document.getElementById('game-score');
-        score.innerText = scoreNbr;
-  
-        bullets[i].htmlElem.remove();
-        bullets.splice(i, 1);
-  
+        setScore(scoreNbr)
+
+        warshipBullets[i].htmlElem.remove();
+        warshipBullets.splice(i, 1);
+
         invaders[j].htmlElem.remove();
         invaders.splice(j, 1);
-  
+
         if (invaders.length === 0) {
-          alert('win');
+          checkWin(true)
+          keys.start = false
         }
-  
+
         break;
       }
     }
   }
-  
+
 
   for (let i = 0; i < invaders_bullets.length; i++) {
     if (checkCollision(warShip, invaders_bullets[i])) {
@@ -96,8 +131,8 @@ const gameLoop = () => {
       livesContainer.removeChild(livesContainer.lastChild);
 
       if (livesNbr === 0) {
-        alert('Game Over!');
-        return;
+        checkWin(false)
+        keys.start = false
       }
     }
   }
@@ -110,6 +145,11 @@ const gameLoop = () => {
   } else {
     warShip.speedX = 0
   }
+}
+
+// init
+const init = () => {
+  controlsSetup(keys)
 }
 
 init()
