@@ -1,4 +1,4 @@
-export { menu, frame }
+export { menu, frame, createlives }
 
 // create frame
 const frame = {
@@ -43,15 +43,17 @@ frame.htmlElem.appendChild(hr);
 
 document.body.appendChild(frame.htmlElem);
 
-const livesContainer = document.getElementById('game-lives');
-livesContainer.innerHTML = '';
-
-for (let live = 0; live < 3; live++) {
-    let htmlLive = document.createElement('img');
-    htmlLive.src = '/imgs/heart.png';
-    livesContainer.appendChild(htmlLive);
+const createlives = () => {
+    const livesContainer = document.getElementById('game-lives');
+    livesContainer.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        const heart = document.createElement('img');
+        heart.src = '/imgs/heart.png';
+        livesContainer.appendChild(heart);
+    }
 }
 
+createlives()
 
 // menu
 const menu = {

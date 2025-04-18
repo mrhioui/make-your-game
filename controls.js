@@ -1,17 +1,14 @@
-export { controlsSetup }
-import { menu, frame } from "./frame.js"
+export { controlsSetup, restart }
+import { menu, frame, createlives } from "./frame.js"
 import { createInvaders, invadersShoot, invaders_bullets, invaders } from "./invaders.js"
-import { warShip, warshipShoot,warshipBullets } from "./warshap.js"
-import { gameLoop, keys,setScore } from "./main.js"
+import { warShip, warshipShoot, warshipBullets } from "./warshap.js"
+import { gameLoop, keys, setScore, animationId } from "./main.js"
 
 let timePast = 0
 
 
 function controlsSetup(keys) {
     document.addEventListener('keydown', ({ code }) => {
-        if (!keys.start) {
-            return
-        }
         switch (code) {
             case 'KeyP':
                 pause()
@@ -79,12 +76,27 @@ function controlsSetup(keys) {
 
 
 const start = () => {
+    const message = document.getElementById('end-message')
+    if (message != null) frame.htmlElem.removeChild(message)
+
+    createlives()
     menu.htmlElem.style.display = "none"
     createInvaders()
     invadersShoot()
     warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
     frame.htmlElem.appendChild(warShip.htmlElem);
     timer()
+    const livesContainer = document.getElementById('game-lives');
+    livesContainer.innerHTML = '';
+
+    for (let live = 0; live < 3; live++) {
+        let htmlLive = document.createElement('img');
+        htmlLive.src = '/imgs/heart.png';
+        livesContainer.appendChild(htmlLive);
+    }
+    if (animationId) {
+        cancelAnimationFrame(animationId);
+    }
     gameLoop()
 }
 
@@ -116,16 +128,14 @@ const resume = () => {
 }
 
 const restart = () => {
-    setScore(0)
+    const message = document.getElementById('end-message')
+    if (message != null) frame.htmlElem.removeChild(message)
 
+    createlives()
+
+    setScore(0)
     timePast = 0
-    const livesContainer = document.getElementById('game-lives');
-    livesContainer.innerHTML = '';
-    for (let i = 0; i < 3; i++) {
-        const heart = document.createElement('img');
-        heart.src = '/imgs/heart.png';
-        livesContainer.appendChild(heart);
-    }
+
 
     invaders.forEach(inv => inv.htmlElem.remove());
     invaders.length = 0;
@@ -145,12 +155,18 @@ const restart = () => {
     createInvaders();
 
     warShip.htmlElem.style.display = 'block';
+
+    if (animationId) {
+        cancelAnimationFrame(animationId);
+    }
+    gameLoop()
     menu.htmlElem.style.display = "none";
 }
 
 // timer
 const timer = () => {
     const timerDisplay = document.getElementById('timer');
+    timePast = 0
 
     const updateTimer = () => {
         const minutes = String(Math.floor(timePast / 60)).padStart(2, '0');

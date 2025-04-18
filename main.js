@@ -1,4 +1,4 @@
-export { gameLoop, keys, setScore }
+export { gameLoop, keys, setScore,animationId }
 import { controlsSetup } from "./controls.js"
 import { moveWarship, warShip, warshipBullets } from "./warshap.js"
 import { moveInvaders, invaders, invaders_bullets } from "./invaders.js"
@@ -6,6 +6,7 @@ import { frame } from "./frame.js"
 
 let livesNbr = 3
 let scoreNbr = 0
+let animationId = null;
 const keys = { left: false, right: false, start: false, pause: false }
 
 // bullets
@@ -29,10 +30,10 @@ const setScore = (value) => {
   document.getElementById('game-score').innerText = scoreNbr;
 }
 
+const messageElem = document.createElement('div');
+messageElem.id = 'end-message';
 // winer/loser
 const checkWin = (win) => {
-  const messageElem = document.createElement('div');
-  messageElem.id = 'end-message';
   messageElem.style.position = 'absolute';
   messageElem.style.top = '50%';
   messageElem.style.left = '50%';
@@ -53,24 +54,22 @@ const checkWin = (win) => {
   invaders_bullets.forEach(b => b.htmlElem.remove());
   invaders_bullets.length = 0;
   warShip.htmlElem.remove()
-  
-  setScore(0)
-  livesNbr = 3
 
+  
   if (win) {
     messageElem.innerText = 'YOU WIN!';
   } else {
+    setScore(0)
     messageElem.innerText = 'GAME OVER!';
   }
 
   frame.htmlElem.appendChild(messageElem);
-
 };
 
 
 // gameLoop
 const gameLoop = () => {
-  requestAnimationFrame(gameLoop)
+  animationId = requestAnimationFrame(gameLoop);
   if (!keys.pause) {
     moveWarship()
     moveInvaders()
@@ -126,12 +125,15 @@ const gameLoop = () => {
       invaders_bullets[i].htmlElem.remove()
       invaders_bullets.splice(i, 1)
 
+      console.log(livesNbr);
+      
       livesNbr -= 1;
       const livesContainer = document.getElementById('game-lives');
       livesContainer.removeChild(livesContainer.lastChild);
 
       if (livesNbr === 0) {
         checkWin(false)
+        livesNbr = 3
         keys.start = false
       }
     }

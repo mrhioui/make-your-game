@@ -73,7 +73,7 @@ function moveInvaders() {
 // shoot
 const invadersShoot = () => {
     setInterval(() => {
-        if (!keys.pause) {
+        if (keys.start && !keys.pause) {
 
             let nbr = Math.floor(Math.random() * invaders.length)
 
