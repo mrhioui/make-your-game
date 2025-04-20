@@ -7,7 +7,7 @@ import { frame } from "./frame.js"
 let livesNbr = 3
 let scoreNbr = 0
 let animationId = null;
-const keys = { left: false, right: false, start: false, pause: false }
+const keys = { left: false, right: false, start: false, pause: false,win:false }
 
 // bullets
 const moveBullet = (bullet) => {
@@ -57,7 +57,9 @@ const checkWin = (win) => {
 
 
   if (win) {
-    messageElem.innerText = 'YOU WIN!';
+    messageElem.innerText = `YOU WIN!
+
+    SCORE: ${scoreNbr}`;
   } else {
     setScore(0)
     messageElem.innerText = 'GAME OVER!';
@@ -112,6 +114,7 @@ const gameLoop = () => {
         if (invaders.length === 0) {
           checkWin(true)
           keys.start = false
+          keys.win = true
         }
 
         break;
@@ -125,8 +128,6 @@ const gameLoop = () => {
       invaders_bullets[i].htmlElem.remove()
       invaders_bullets.splice(i, 1)
 
-      console.log(livesNbr);
-
       livesNbr -= 1;
       const livesContainer = document.getElementById('game-lives');
       livesContainer.removeChild(livesContainer.lastChild);
@@ -135,6 +136,7 @@ const gameLoop = () => {
         checkWin(false)
         livesNbr = 3
         keys.start = false
+        keys.win = false
       }
     }
   }

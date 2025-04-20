@@ -1,10 +1,9 @@
 export { controlsSetup, restart }
-import { menu, frame, createlives } from "./frame.js"
+import { menu, frame, createlives, unit } from "./frame.js"
 import { createInvaders, invadersShoot, invaders_bullets, invaders } from "./invaders.js"
 import { warShip, warshipShoot, warshipBullets } from "./warshap.js"
 import { gameLoop, keys, setScore, animationId } from "./main.js"
 
-let timePast = 0
 
 
 function controlsSetup(keys) {
@@ -16,6 +15,9 @@ function controlsSetup(keys) {
                 break
 
             case 'KeyR':
+                keys.start = true
+                keys.pause = false
+                keys.win = false
                 restart()
                 break
 
@@ -59,7 +61,7 @@ function controlsSetup(keys) {
                 break
 
             case 'Space':
-                if (!keys.pause) {
+                if (keys.start && !keys.pause) {
                     warshipShoot()
                 }
                 break
@@ -69,7 +71,7 @@ function controlsSetup(keys) {
         }
     })
     document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
+        if (document.visibilityState === 'hidden' && keys.start && !keys.pause) {
             pause()
             keys.pause = true
         }
@@ -89,7 +91,11 @@ const start = () => {
     invadersShoot()
     warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
     frame.htmlElem.appendChild(warShip.htmlElem);
-    timer()
+    console.log(keys);
+
+    if (!keys.win) {
+        timer(0)
+    }
     const livesContainer = document.getElementById('game-lives');
     livesContainer.innerHTML = '';
 
@@ -134,31 +140,24 @@ const resume = () => {
 const restart = () => {
     const message = document.getElementById('end-message')
     if (message != null) frame.htmlElem.removeChild(message)
+        console.log(keys);
 
     createlives()
-
     setScore(0)
-    timePast = 0
+    timer(0)
 
 
     invaders.forEach(inv => inv.htmlElem.remove());
     invaders.length = 0;
+    createInvaders();
 
     warshipBullets.forEach(b => b.htmlElem.remove());
     warshipBullets.length = 0;
     invaders_bullets.forEach(b => b.htmlElem.remove());
     invaders_bullets.length = 0;
 
-    warShip.position.x = (frame.width - warShip.width) / 2;
-    warShip.position.y = frame.height - ((48 * 4) - 25);
-    warShip.speedX = 0;
-    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`;
-    warShip.htmlElem.style.display = 'block';
-
-    keys.pause = false;
-
-    createInvaders();
-
+    warShip.htmlElem.style.transform = `translate(${(frame.width - 4 * unit) / 2}px, ${frame.height - ((18 * unit))}px)`;
+    frame.htmlElem.appendChild(warShip.htmlElem)
 
     if (animationId) {
         cancelAnimationFrame(animationId);
@@ -168,11 +167,13 @@ const restart = () => {
 }
 
 // timer
-const timer = () => {
-    const timerDisplay = document.getElementById('timer');
-    timePast = 0
+let timerInterval = null;
 
-    const updateTimer = () => {
+const timer = (timePast) => {
+    const timerDisplay = document.getElementById('timer');
+    if (timerInterval) clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
         const minutes = String(Math.floor(timePast / 60)).padStart(2, '0');
         const seconds = String(timePast % 60).padStart(2, '0');
         timerDisplay.innerHTML = `${minutes}:${seconds} <img src="/imgs/clock.png" alt="time-icon">`;
@@ -180,6 +181,5 @@ const timer = () => {
         if (keys.pause == false && keys.start == true) {
             timePast++;
         }
-    };
-    setInterval(updateTimer, 1000);
+    }, 1000);
 };

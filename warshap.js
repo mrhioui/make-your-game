@@ -29,7 +29,7 @@ const warShip = {
 // movement
 const moveWarship = () => {
     warShip.position.x += warShip.speedX
-    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
+    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px   , ${warShip.position.y}px)`
 }
 
 // shoot

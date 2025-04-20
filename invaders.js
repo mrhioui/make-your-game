@@ -71,10 +71,14 @@ function moveInvaders() {
 }
 
 // shoot
-const invadersShoot = () => {
-    setInterval(() => {
-        if (keys.start && !keys.pause) {
+let  shootInterval = null;
 
+const invadersShoot = () => {
+    if (shootInterval) clearInterval(shootInterval);
+
+    shootInterval = setInterval(() => {
+        if (keys.start && !keys.pause) {
+            if (invaders.length === 0) return;
             let nbr = Math.floor(Math.random() * invaders.length)
 
             const invader_bullet = {
