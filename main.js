@@ -1,4 +1,4 @@
-export { gameLoop, keys, setScore,animationId }
+export { gameLoop, keys, setScore, animationId }
 import { controlsSetup } from "./controls.js"
 import { moveWarship, warShip, warshipBullets } from "./warshap.js"
 import { moveInvaders, invaders, invaders_bullets } from "./invaders.js"
@@ -30,10 +30,10 @@ const setScore = (value) => {
   document.getElementById('game-score').innerText = scoreNbr;
 }
 
-const messageElem = document.createElement('div');
-messageElem.id = 'end-message';
 // winer/loser
 const checkWin = (win) => {
+  const messageElem = document.createElement('div');
+  messageElem.id = 'end-message';
   messageElem.style.position = 'absolute';
   messageElem.style.top = '50%';
   messageElem.style.left = '50%';
@@ -55,7 +55,7 @@ const checkWin = (win) => {
   invaders_bullets.length = 0;
   warShip.htmlElem.remove()
 
-  
+
   if (win) {
     messageElem.innerText = 'YOU WIN!';
   } else {
@@ -126,7 +126,7 @@ const gameLoop = () => {
       invaders_bullets.splice(i, 1)
 
       console.log(livesNbr);
-      
+
       livesNbr -= 1;
       const livesContainer = document.getElementById('game-lives');
       livesContainer.removeChild(livesContainer.lastChild);

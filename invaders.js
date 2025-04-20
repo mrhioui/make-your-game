@@ -1,5 +1,5 @@
 export { createInvaders, invadersShoot, moveInvaders, invaders, invaders_bullets }
-import { frame } from "./frame.js"
+import { frame, unit } from "./frame.js"
 import { keys } from "./main.js"
 
 // create invaders 
@@ -18,7 +18,7 @@ function createInvaders() {
     grid.id = 'invaders-grid'
     grid.style.width = '100%';
     grid.style.height = 'auto';
-    const gap = 15
+    const gap = 1.3*unit
     for (let row = 0; row < invadersProprietys.Rows; row++) {
         for (let col = 0; col < invadersProprietys.Cols; col++) {
             const invader = {
@@ -31,12 +31,12 @@ function createInvaders() {
                 }
             }
             invader.htmlElem.src = '/imgs/invader.png'
-            invader.htmlElem.style.width = '48px'
-            invader.htmlElem.style.height = '48px'
+            invader.htmlElem.style.width = '6mvin'
+            invader.htmlElem.style.height = '6vmin'
             invader.htmlElem.classList.add("invader")
             invader.htmlElem.style.position = 'absolute'
-            grid.appendChild(invader.htmlElem)
             invader.htmlElem.style.transform = `translate(${invader.position.x}px, ${invader.position.y}px)`
+            grid.appendChild(invader.htmlElem)
             invaders.push(invader)
         }
     }
@@ -85,7 +85,7 @@ const invadersShoot = () => {
                     x: invaders[nbr].position.x + 10,
                     y: invaders[nbr].position.y + 40
                 },
-                speedY: 7
+                speedY: 5
             }
 
             invader_bullet.htmlElem.src = 'imgs/invader-bullet.png'
@@ -94,5 +94,5 @@ const invadersShoot = () => {
             invader_bullet.htmlElem.style.transform = `translate(${invader_bullet.position.x}px, ${invader_bullet.position.y}px)`
             invaders_bullets.push(invader_bullet)
         }
-    }, invaders.length * 50)
+    }, invaders.length * 100)
 }

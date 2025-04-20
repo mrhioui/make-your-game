@@ -1,41 +1,41 @@
-export { menu, frame, createlives }
+export { menu, frame,unit, createlives }
+
+const unit = Math.min(window.innerWidth, window.innerHeight) / 100;
 
 // create frame
 const frame = {
+    width: 120 * unit,
+    height: 80 * unit,
     htmlElem: (() => {
         const div = document.createElement('div');
         div.id = 'main-frame';
         return div;
     })(),
-    width: window.innerWidth / 2,
-    height: window.innerHeight - (window.innerHeight / 4)
 };
-
 
 frame.htmlElem.style.width = `${frame.width}px`;
 frame.htmlElem.style.height = `${frame.height}px`;
 frame.htmlElem.style.border = "2px solid white";
+
 
 // create header
 const header = {
     htmlElem: (() => {
         const div = document.createElement('div');
         div.id = 'header';
+        let headerContent = `
+             <h1>SCORE: <span id="game-score">0</span></h1>
+             <div id="remaining-time">
+                 <h1 id="timer">00:00 <img src="/imgs/clock.png" alt="time-icon"></h1>
+             </div>
+             <div id="game-lives"></div>
+         `;
+        div.innerHTML = headerContent;
         return div;
     })(),
 };
 
-let headerContent = `
-      <h1>SCORE: <span id="game-score">0</span></h1>
-      <div id="remaining-time">
-          <h1 id="timer">00:00 <img src="/imgs/clock.png" alt="time-icon"></h1>
-      </div>
-      <div id="game-lives"></div>
-  `;
 
-
-
-header.htmlElem.innerHTML = headerContent;
 frame.htmlElem.appendChild(header.htmlElem);
 
 const hr = document.createElement('hr');
@@ -60,10 +60,7 @@ const menu = {
     htmlElem: (() => {
         const div = document.createElement('div');
         div.id = 'menu';
-        return div;
-    })(),
-};
-const StartMenu = `
+        const StartMenu = `
           <h1>SPACE <br>INvADERS</span></h1>
          <div class="controls">
               <div><span class="square">P</span> Pause</div>
@@ -72,8 +69,12 @@ const StartMenu = `
               <br>
               <div><span class="square">←</span> <span class="square">→</span> to move,<span class="square">space</span> to shoot</div>
           </div>
-          <div id="start-message">press space key to begin</div>
+          <div id="start-message">press enter key to begin</div>
           `
+        div.innerHTML = StartMenu
 
-menu.htmlElem.innerHTML = StartMenu
+        return div;
+    })(),
+};
+
 frame.htmlElem.appendChild(menu.htmlElem)

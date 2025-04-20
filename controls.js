@@ -51,11 +51,15 @@ function controlsSetup(keys) {
                 keys.right = false
                 break
 
-            case 'Space':
+            case 'Enter':
                 if (!keys.start) {
                     start()
                     keys.start = true
-                } else if (!keys.pause) {
+                }
+                break
+
+            case 'Space':
+                if (!keys.pause) {
                     warshipShoot()
                 }
                 break
@@ -78,9 +82,9 @@ function controlsSetup(keys) {
 const start = () => {
     const message = document.getElementById('end-message')
     if (message != null) frame.htmlElem.removeChild(message)
+    menu.htmlElem.style.display = "none"
 
     createlives()
-    menu.htmlElem.style.display = "none"
     createInvaders()
     invadersShoot()
     warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
@@ -149,12 +153,12 @@ const restart = () => {
     warShip.position.y = frame.height - ((48 * 4) - 25);
     warShip.speedX = 0;
     warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`;
+    warShip.htmlElem.style.display = 'block';
 
     keys.pause = false;
 
     createInvaders();
 
-    warShip.htmlElem.style.display = 'block';
 
     if (animationId) {
         cancelAnimationFrame(animationId);
