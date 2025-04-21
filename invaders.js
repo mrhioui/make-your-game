@@ -1,5 +1,5 @@
 export { createInvaders, invadersShoot, moveInvaders, invaders, invaders_bullets }
-import { frame, unit } from "./frame.js"
+import { frame } from "./frame.js"
 import { keys } from "./main.js"
 
 // create invaders 
@@ -8,8 +8,8 @@ const invaders_bullets = []
 const invadersProprietys = {
     Rows: 3,
     Cols: 8,
-    SpeedX: 4,
-    SpeedY: 3,
+    SpeedX: 0.7,
+    SpeedY: 0.7,
     Direction: 1,
     score: 30
 }
@@ -19,17 +19,17 @@ function createInvaders() {
     grid.id = 'invaders-grid'
     grid.style.width = '100%';
     grid.style.height = 'auto';
-    const gap = 1.3 * unit
+    const gap = 0
     for (let row = 1; row <= invadersProprietys.Rows; row++) {
         for (let col = 0; col < invadersProprietys.Cols; col++) {
             const invader = {
                 htmlElem: document.createElement('img'),
-                width: 48,
-                height: 48,
+                width: 6,
+                height: 6,
                 score: invadersProprietys.score / row,
                 position: {
-                    x: col * (48 + gap),
-                    y: (row-1) * (48 + gap)
+                    x: col * (6 + gap),
+                    y: (row - 1) * (6 + gap)
                 }
             }
             invader.htmlElem.src = '/imgs/invader.png'
@@ -37,7 +37,7 @@ function createInvaders() {
             invader.htmlElem.style.height = '6vmin'
             invader.htmlElem.classList.add("invader")
             invader.htmlElem.style.position = 'absolute'
-            invader.htmlElem.style.transform = `translate(${invader.position.x}px, ${invader.position.y}px)`
+            invader.htmlElem.style.transform = `translate(${invader.position.x}vmin, ${invader.position.y}vmin)`
             grid.appendChild(invader.htmlElem)
             invaders.push(invader)
         }
@@ -47,11 +47,14 @@ function createInvaders() {
 
 // movement
 function moveInvaders() {
+    const vmin = Math.min(window.innerWidth, window.innerHeight) / 100
     let edgeReached = false
 
     invaders.forEach(invader => {
         const nextX = invader.position.x + invadersProprietys.SpeedX * invadersProprietys.Direction
-        if (nextX < 0 || nextX + invader.htmlElem.getBoundingClientRect().width > frame.htmlElem.getBoundingClientRect().width) {
+        const invaderWidth = invader.htmlElem.getBoundingClientRect().width / vmin
+        const frameWidth = frame.htmlElem.getBoundingClientRect().width / vmin
+        if (nextX < 0 || nextX + invaderWidth > frameWidth) {
             edgeReached = true
         }
     })
@@ -68,7 +71,7 @@ function moveInvaders() {
     }
 
     invaders.forEach(invader => {
-        invader.htmlElem.style.transform = `translate(${invader.position.x}px, ${invader.position.y}px)`
+        invader.htmlElem.style.transform = `translate(${invader.position.x}vmin, ${invader.position.y}vmin)`
     })
 }
 
@@ -85,19 +88,19 @@ const invadersShoot = () => {
 
             const invader_bullet = {
                 htmlElem: document.createElement('img'),
-                width: 22,
-                height: 22,
+                width: 2,
+                height: 2,
                 position: {
-                    x: invaders[nbr].position.x + 10,
-                    y: invaders[nbr].position.y + 40
+                    x: invaders[nbr].position.x + 1,
+                    y: invaders[nbr].position.y
                 },
-                speedY: 5
+                speedY: 1
             }
 
             invader_bullet.htmlElem.src = 'imgs/invader-bullet.png'
             invader_bullet.htmlElem.classList.add("bullet")
             frame.htmlElem.appendChild(invader_bullet.htmlElem)
-            invader_bullet.htmlElem.style.transform = `translate(${invader_bullet.position.x}px, ${invader_bullet.position.y}px)`
+            invader_bullet.htmlElem.style.transform = `translate(${invader_bullet.position.x}vmin, ${invader_bullet.position.y}vmin)`
             invaders_bullets.push(invader_bullet)
         }
     }, invaders.length * 100)

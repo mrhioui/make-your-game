@@ -1,5 +1,6 @@
 export { warShip, warshipBullets, moveWarship, warshipShoot }
-import { frame, unit } from "./frame.js";
+import { frame } from "./frame.js";
+import { keys } from "./main.js";
 
 const warshipBullets = []
 // create warShip
@@ -15,38 +16,46 @@ const warShip = {
         div.style.backgroundRepeat = 'no-repeat';
         return div;
     })(),
-    width: 2 * unit,
-    height: 2 * unit,
+    width: 6,
+    height: 6,
     position: {
-        x: (frame.width - 4 * unit) / 2,
-        y: frame.height - ((18 * unit))
+        x: (frame.width - 20) / 2,
+        y: frame.height - 15
     },
-    speedX: 0
+    speedX: 0.7
 
 };
 
 
 // movement
 const moveWarship = () => {
+    if (keys.left && warShip.position.x >= 1) {
+        warShip.speedX = -0.7
+    } else if (keys.right && warShip.position.x + 6 <= frame.width - 18) {
+        warShip.speedX = 0.7
+    } else {
+        warShip.speedX = 0
+    }
+    
     warShip.position.x += warShip.speedX
-    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px   , ${warShip.position.y}px)`
+    warShip.htmlElem.style.transform = `translate(${warShip.position.x}vmin, ${warShip.position.y}vmin)`
 }
 
 // shoot
 const warshipShoot = () => {
     const bullet = {
         htmlElem: document.createElement('img'),
-        width: 22,
-        height: 22,
+        width: 2,
+        height: 2,
         position: {
-            x: warShip.position.x + 13,
-            y: warShip.position.y - 20
+            x: warShip.position.x + 1.8,
+            y: warShip.position.y
         },
-        speedY: -5
+        speedY: -1
     }
     bullet.htmlElem.src = 'imgs/bullet.png'
     bullet.htmlElem.classList.add("bullet")
-    bullet.htmlElem.style.transform = `translate(${bullet.position.x}px, ${bullet.position.y}px)`
+    bullet.htmlElem.style.transform = `translate(${bullet.position.x}vmin, ${bullet.position.y}vmin)`
     frame.htmlElem.appendChild(bullet.htmlElem)
     warshipBullets.push(bullet)
 }

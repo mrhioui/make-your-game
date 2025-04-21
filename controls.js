@@ -1,5 +1,5 @@
 export { controlsSetup, restart }
-import { menu, frame, createlives, unit } from "./frame.js"
+import { menu, frame, createlives } from "./frame.js"
 import { createInvaders, invadersShoot, invaders_bullets, invaders } from "./invaders.js"
 import { warShip, warshipShoot, warshipBullets } from "./warshap.js"
 import { gameLoop, keys, setScore, animationId } from "./main.js"
@@ -92,7 +92,7 @@ const start = () => {
     }
     createInvaders()
     invadersShoot()
-    warShip.htmlElem.style.transform = `translate(${(frame.width - 4 * unit) / 2}px, ${(frame.width - 4 * unit) / 2}px)`
+    warShip.htmlElem.style.transform = `translate(${(frame.width - 20) / 2}vmin, ${frame.height - 15}vmin)`
     frame.htmlElem.appendChild(warShip.htmlElem);
 
     if (animationId) {
@@ -146,7 +146,7 @@ const restart = () => {
     invaders_bullets.forEach(b => b.htmlElem.remove());
     invaders_bullets.length = 0;
 
-    warShip.htmlElem.style.transform = `translate(${(frame.width - 4 * unit) / 2}px, ${frame.height - ((18 * unit))}px)`;
+    warShip.htmlElem.style.transform = `translate(${(frame.width - 20) / 2}px, ${frame.height - 15}px)`;
     frame.htmlElem.appendChild(warShip.htmlElem)
 
     if (animationId) {

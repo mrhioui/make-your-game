@@ -12,7 +12,7 @@ const keys = { left: false, right: false, start: false, pause: false, win: false
 // bullets
 const moveBullet = (bullet) => {
   bullet.position.y += bullet.speedY
-  bullet.htmlElem.style.transform = `translate(${bullet.position.x}px, ${bullet.position.y}px)`
+  bullet.htmlElem.style.transform = `translate(${bullet.position.x}vmin, ${bullet.position.y}vmin)`
 }
 
 // collision
@@ -30,10 +30,10 @@ const setScore = (value) => {
   document.getElementById('game-score').innerText = scoreNbr;
 }
 
+const messageElem = document.createElement('div');
+messageElem.id = 'end-message';
 // winer/loser
 const checkWin = (win) => {
-  const messageElem = document.createElement('div');
-  messageElem.id = 'end-message';
   messageElem.style.position = 'absolute';
   messageElem.style.top = '50%';
   messageElem.style.left = '50%';
@@ -57,9 +57,7 @@ const checkWin = (win) => {
 
 
   if (win) {
-    messageElem.innerText = `YOU WIN!
-
-    SCORE: ${scoreNbr}`;
+    messageElem.innerText = 'YOU WIN!';
   } else {
     setScore(0)
     messageElem.innerText = 'GAME OVER!';
@@ -102,7 +100,7 @@ const gameLoop = () => {
   for (let i = warshipBullets.length - 1; i >= 0; i--) {
     for (let j = invaders.length - 1; j >= 0; j--) {
       if (checkCollision(warshipBullets[i], invaders[j])) {
-        scoreNbr += invaders[j].score;
+        scoreNbr += 10;
         setScore(scoreNbr)
 
         warshipBullets[i].htmlElem.remove();
@@ -113,8 +111,8 @@ const gameLoop = () => {
 
         if (invaders.length === 0) {
           checkWin(true)
-          keys.start = false
           keys.win = true
+          keys.start = false
         }
 
         break;
@@ -128,6 +126,7 @@ const gameLoop = () => {
       invaders_bullets[i].htmlElem.remove()
       invaders_bullets.splice(i, 1)
 
+
       livesNbr -= 1;
       const livesContainer = document.getElementById('game-lives');
       livesContainer.removeChild(livesContainer.lastChild);
@@ -135,19 +134,10 @@ const gameLoop = () => {
       if (livesNbr === 0) {
         checkWin(false)
         livesNbr = 3
-        keys.start = false
         keys.win = false
+        keys.start = false
       }
     }
-  }
-
-  // movement warship
-  if (keys.left && warShip.position.x >= 15) {
-    warShip.speedX = -5
-  } else if (keys.right && warShip.position.x + 48 <= frame.width - 15) {
-    warShip.speedX = 5
-  } else {
-    warShip.speedX = 0
   }
 }
 

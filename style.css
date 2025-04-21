@@ -40,6 +40,8 @@ hr {
 
 .bullet {
     position: absolute;
+    width: 3vmin;
+    height: 3vmin;
     z-index: 1;
 }
 

@@ -1,11 +1,10 @@
-export { menu, frame,unit, createlives }
+export { menu, frame, createlives }
 
-const unit = Math.min(window.innerWidth, window.innerHeight) / 100;
 
 // create frame
 const frame = {
-    width: 120 * unit,
-    height: 80 * unit,
+    width: 120,
+    height: 80,
     htmlElem: (() => {
         const div = document.createElement('div');
         div.id = 'main-frame';
@@ -13,8 +12,8 @@ const frame = {
     })(),
 };
 
-frame.htmlElem.style.width = `${frame.width}px`;
-frame.htmlElem.style.height = `${frame.height}px`;
+frame.htmlElem.style.width = `${frame.width}vmin`;
+frame.htmlElem.style.height = `${frame.height}vmin`;
 frame.htmlElem.style.border = "2px solid white";
 
 
