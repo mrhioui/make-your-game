@@ -75,32 +75,37 @@ const gameLoop = () => {
     moveInvaders()
   }
 
-  // move bullets invader
-  invaders_bullets.forEach((bullet, bltIndex) => {
-    if (bullet.position.y >= frame.htmlElem.getBoundingClientRect().height - 140) {
+  const vmin = Math.min(window.innerWidth, window.innerHeight) / 100;
+  const frameHeightVmin = frame.htmlElem.getBoundingClientRect().height / vmin;
+  const frameTopPx = frame.htmlElem.getBoundingClientRect().top;
+
+  for (let i = invaders_bullets.length - 1; i >= 0; i--) {
+    const bullet = invaders_bullets[i];
+    if (bullet.position.y >= frameHeightVmin -12) {
       bullet.htmlElem.remove();
-      invaders_bullets.splice(bltIndex, 1);
+      invaders_bullets.splice(i, 1);
     } else {
       moveBullet(bullet);
     }
-  });
+  }
 
-  // move bullets warship
-  warshipBullets.forEach((bullet, bltIndex) => {
-    if (bullet.htmlElem.getBoundingClientRect().y <= frame.htmlElem.getBoundingClientRect().top + 90) {
-      bullet.htmlElem.remove()
-      warshipBullets.splice(bltIndex, 1)
+  for (let i = warshipBullets.length - 1; i >= 0; i--) {
+    const bullet = warshipBullets[i];
+    if (bullet.htmlElem.getBoundingClientRect().y <= frameTopPx +20) {
+      bullet.htmlElem.remove();
+      warshipBullets.splice(i, 1);
     } else {
-      moveBullet(bullet)
+      moveBullet(bullet);
     }
-  })
+  }
+
 
 
   // collition
   for (let i = warshipBullets.length - 1; i >= 0; i--) {
     for (let j = invaders.length - 1; j >= 0; j--) {
       if (checkCollision(warshipBullets[i], invaders[j])) {
-        scoreNbr += 10;
+        scoreNbr += invaders[j].score;
         setScore(scoreNbr)
 
         warshipBullets[i].htmlElem.remove();

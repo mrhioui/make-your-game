@@ -19,7 +19,7 @@ function createInvaders() {
     grid.id = 'invaders-grid'
     grid.style.width = '100%';
     grid.style.height = 'auto';
-    const gap = 0
+    const gap = 1
     for (let row = 1; row <= invadersProprietys.Rows; row++) {
         for (let col = 0; col < invadersProprietys.Cols; col++) {
             const invader = {
