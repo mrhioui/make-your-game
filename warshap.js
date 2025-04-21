@@ -19,7 +19,7 @@ const warShip = {
     height: 2 * unit,
     position: {
         x: (frame.width - 4 * unit) / 2,
-        y: frame.height - ((18 * unit ) )
+        y: frame.height - ((18 * unit))
     },
     speedX: 0
 

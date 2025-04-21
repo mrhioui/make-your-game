@@ -7,7 +7,7 @@ import { frame } from "./frame.js"
 let livesNbr = 3
 let scoreNbr = 0
 let animationId = null;
-const keys = { left: false, right: false, start: false, pause: false,win:false }
+const keys = { left: false, right: false, start: false, pause: false, win: false }
 
 // bullets
 const moveBullet = (bullet) => {
@@ -102,7 +102,7 @@ const gameLoop = () => {
   for (let i = warshipBullets.length - 1; i >= 0; i--) {
     for (let j = invaders.length - 1; j >= 0; j--) {
       if (checkCollision(warshipBullets[i], invaders[j])) {
-        scoreNbr += 10;
+        scoreNbr += invaders[j].score;
         setScore(scoreNbr)
 
         warshipBullets[i].htmlElem.remove();

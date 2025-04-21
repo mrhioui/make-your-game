@@ -71,9 +71,9 @@ function controlsSetup(keys) {
         }
     })
     document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden' && keys.start && !keys.pause) {
-            pause()
+        if (document.hidden && keys.start && !keys.pause) {
             keys.pause = true
+            pause()
         }
     });
 
@@ -86,24 +86,15 @@ const start = () => {
     if (message != null) frame.htmlElem.removeChild(message)
     menu.htmlElem.style.display = "none"
 
-    createlives()
-    createInvaders()
-    invadersShoot()
-    warShip.htmlElem.style.transform = `translate(${warShip.position.x}px, ${warShip.position.y}px)`
-    frame.htmlElem.appendChild(warShip.htmlElem);
-    console.log(keys);
-
     if (!keys.win) {
+        createlives()
         timer(0)
     }
-    const livesContainer = document.getElementById('game-lives');
-    livesContainer.innerHTML = '';
+    createInvaders()
+    invadersShoot()
+    warShip.htmlElem.style.transform = `translate(${(frame.width - 4 * unit) / 2}px, ${(frame.width - 4 * unit) / 2}px)`
+    frame.htmlElem.appendChild(warShip.htmlElem);
 
-    for (let live = 0; live < 3; live++) {
-        let htmlLive = document.createElement('img');
-        htmlLive.src = '/imgs/heart.png';
-        livesContainer.appendChild(htmlLive);
-    }
     if (animationId) {
         cancelAnimationFrame(animationId);
     }
@@ -122,6 +113,7 @@ const pause = () => {
         bullet.htmlElem.style.display = 'none'
         frame.htmlElem.removeChild(bullet.htmlElem)
     })
+    
     warshipBullets.forEach((bullet) => {
         bullet.htmlElem.style.display = 'none'
         frame.htmlElem.removeChild(bullet.htmlElem)
@@ -140,12 +132,10 @@ const resume = () => {
 const restart = () => {
     const message = document.getElementById('end-message')
     if (message != null) frame.htmlElem.removeChild(message)
-        console.log(keys);
 
     createlives()
     setScore(0)
     timer(0)
-
 
     invaders.forEach(inv => inv.htmlElem.remove());
     invaders.length = 0;

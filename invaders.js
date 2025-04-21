@@ -10,7 +10,8 @@ const invadersProprietys = {
     Cols: 8,
     SpeedX: 4,
     SpeedY: 3,
-    Direction: 1
+    Direction: 1,
+    score: 30
 }
 
 function createInvaders() {
@@ -18,16 +19,17 @@ function createInvaders() {
     grid.id = 'invaders-grid'
     grid.style.width = '100%';
     grid.style.height = 'auto';
-    const gap = 1.3*unit
-    for (let row = 0; row < invadersProprietys.Rows; row++) {
+    const gap = 1.3 * unit
+    for (let row = 1; row <= invadersProprietys.Rows; row++) {
         for (let col = 0; col < invadersProprietys.Cols; col++) {
             const invader = {
                 htmlElem: document.createElement('img'),
                 width: 48,
                 height: 48,
+                score: invadersProprietys.score / row,
                 position: {
                     x: col * (48 + gap),
-                    y: row * (48 + gap)
+                    y: (row-1) * (48 + gap)
                 }
             }
             invader.htmlElem.src = '/imgs/invader.png'
@@ -71,7 +73,7 @@ function moveInvaders() {
 }
 
 // shoot
-let  shootInterval = null;
+let shootInterval = null;
 
 const invadersShoot = () => {
     if (shootInterval) clearInterval(shootInterval);
