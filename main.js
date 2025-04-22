@@ -1,8 +1,8 @@
-export { gameLoop, keys, setScore, animationId }
+export { gameLoop, keys, setScore, animationId, vmin }
 import { controlsSetup } from "./controls.js"
 import { moveWarship, warShip, warshipBullets } from "./warshap.js"
-import { moveInvaders, invaders, invaders_bullets } from "./invaders.js"
-import { frame } from "./frame.js"
+import { moveInvaders, invaders, invaders_bullets, createInvaders } from "./invaders.js"
+import { frame, createlives } from "./frame.js"
 
 let livesNbr = 3
 let scoreNbr = 0
@@ -60,6 +60,7 @@ const checkWin = (win) => {
     messageElem.innerText = 'YOU WIN!';
   } else {
     setScore(0)
+    createlives()
     messageElem.innerText = 'GAME OVER!';
   }
 
@@ -67,6 +68,7 @@ const checkWin = (win) => {
 };
 
 
+const vmin = Math.min(window.innerWidth, window.innerHeight) / 100;
 // gameLoop
 const gameLoop = () => {
   animationId = requestAnimationFrame(gameLoop);
@@ -75,13 +77,12 @@ const gameLoop = () => {
     moveInvaders()
   }
 
-  const vmin = Math.min(window.innerWidth, window.innerHeight) / 100;
   const frameHeightVmin = frame.htmlElem.getBoundingClientRect().height / vmin;
   const frameTopPx = frame.htmlElem.getBoundingClientRect().top;
 
   for (let i = invaders_bullets.length - 1; i >= 0; i--) {
     const bullet = invaders_bullets[i];
-    if (bullet.position.y >= frameHeightVmin -12) {
+    if (bullet.position.y >= frameHeightVmin - 12) {
       bullet.htmlElem.remove();
       invaders_bullets.splice(i, 1);
     } else {
@@ -91,7 +92,7 @@ const gameLoop = () => {
 
   for (let i = warshipBullets.length - 1; i >= 0; i--) {
     const bullet = warshipBullets[i];
-    if (bullet.htmlElem.getBoundingClientRect().y <= frameTopPx +20) {
+    if (bullet.htmlElem.getBoundingClientRect().y <= frameTopPx + 10) {
       bullet.htmlElem.remove();
       warshipBullets.splice(i, 1);
     } else {
@@ -125,12 +126,10 @@ const gameLoop = () => {
     }
   }
 
-
   for (let i = 0; i < invaders_bullets.length; i++) {
     if (checkCollision(warShip, invaders_bullets[i])) {
       invaders_bullets[i].htmlElem.remove()
       invaders_bullets.splice(i, 1)
-
 
       livesNbr -= 1;
       const livesContainer = document.getElementById('game-lives');
@@ -141,6 +140,26 @@ const gameLoop = () => {
         livesNbr = 3
         keys.win = false
         keys.start = false
+      }
+    }
+  }
+
+  for (let i = 0; i < invaders.length; i++) {
+    if (checkCollision(invaders[i], warShip)) {
+      invaders.forEach(inv => inv.htmlElem.remove());
+      invaders.length = 0;
+
+      livesNbr -= 1;
+      const livesContainer = document.getElementById('game-lives');
+      livesContainer.removeChild(livesContainer.lastChild);
+
+      if (livesNbr === 0) {
+        checkWin(false)
+        livesNbr = 3
+        keys.win = false
+        keys.start = false
+      } else {
+        createInvaders()
       }
     }
   }

@@ -3,8 +3,8 @@ export { menu, frame, createlives }
 
 // create frame
 const frame = {
-    width: 120,
-    height: 80,
+    width: 90,
+    height: 90,
     htmlElem: (() => {
         const div = document.createElement('div');
         div.id = 'main-frame';
@@ -23,9 +23,9 @@ const header = {
         const div = document.createElement('div');
         div.id = 'header';
         let headerContent = `
-             <h1>SCORE: <span id="game-score">0</span></h1>
+             <h1>SCORE <span id="game-score">0</span></h1>
              <div id="remaining-time">
-                 <h1 id="timer">00:00 <img src="/imgs/clock.png" alt="time-icon"></h1>
+                 <h1 id="timer">00:00 <img src="/imgs/timer.png" alt="time-icon"></h1>
              </div>
              <div id="game-lives"></div>
          `;
@@ -37,8 +37,6 @@ const header = {
 
 frame.htmlElem.appendChild(header.htmlElem);
 
-const hr = document.createElement('hr');
-frame.htmlElem.appendChild(hr);
 
 document.body.appendChild(frame.htmlElem);
 

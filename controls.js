@@ -10,8 +10,10 @@ function controlsSetup(keys) {
     document.addEventListener('keydown', ({ code }) => {
         switch (code) {
             case 'KeyP':
-                pause()
-                keys.pause = true
+                if (keys.start) {
+                    keys.pause = true
+                    pause()
+                }
                 break
 
             case 'KeyR':
@@ -22,8 +24,8 @@ function controlsSetup(keys) {
                 break
 
             case 'Escape':
-                resume()
                 keys.pause = false
+                resume()
                 break
 
             case 'KeyA':
@@ -86,22 +88,18 @@ const start = () => {
     if (message != null) frame.htmlElem.removeChild(message)
     menu.htmlElem.style.display = "none"
 
-    if (!keys.win) {
-        createlives()
-        timer(0)
-    }
+    if (!keys.win) timer(0)
     createInvaders()
     invadersShoot()
     warShip.htmlElem.style.transform = `translate(${(frame.width - 20) / 2}vmin, ${frame.height - 15}vmin)`
     frame.htmlElem.appendChild(warShip.htmlElem);
 
-    if (animationId) {
-        cancelAnimationFrame(animationId);
-    }
+    if (animationId) cancelAnimationFrame(animationId);
     gameLoop()
 }
 
 const pause = () => {
+
     let message = document.getElementById('start-message')
     message.style.display = 'none'
     menu.htmlElem.style.display = "block"
@@ -113,7 +111,7 @@ const pause = () => {
         bullet.htmlElem.style.display = 'none'
         frame.htmlElem.removeChild(bullet.htmlElem)
     })
-    
+
     warshipBullets.forEach((bullet) => {
         bullet.htmlElem.style.display = 'none'
         frame.htmlElem.removeChild(bullet.htmlElem)
@@ -166,7 +164,7 @@ const timer = (timePast) => {
     timerInterval = setInterval(() => {
         const minutes = String(Math.floor(timePast / 60)).padStart(2, '0');
         const seconds = String(timePast % 60).padStart(2, '0');
-        timerDisplay.innerHTML = `${minutes}:${seconds} <img src="/imgs/clock.png" alt="time-icon">`;
+        timerDisplay.innerHTML = `${minutes}:${seconds} <img src="/imgs/timer.png" alt="time-icon">`;
 
         if (keys.pause == false && keys.start == true) {
             timePast++;

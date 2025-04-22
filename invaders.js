@@ -1,6 +1,6 @@
 export { createInvaders, invadersShoot, moveInvaders, invaders, invaders_bullets }
 import { frame } from "./frame.js"
-import { keys } from "./main.js"
+import { keys, vmin } from "./main.js"
 
 // create invaders 
 const invaders = []
@@ -9,7 +9,7 @@ const invadersProprietys = {
     Rows: 3,
     Cols: 8,
     SpeedX: 0.7,
-    SpeedY: 0.7,
+    SpeedY: 4,
     Direction: 1,
     score: 30
 }
@@ -33,11 +33,12 @@ function createInvaders() {
                 }
             }
             invader.htmlElem.src = '/imgs/invader.png'
-            invader.htmlElem.style.width = '6mvin'
+            invader.htmlElem.style.width = '6vmin'
             invader.htmlElem.style.height = '6vmin'
             invader.htmlElem.classList.add("invader")
             invader.htmlElem.style.position = 'absolute'
             invader.htmlElem.style.transform = `translate(${invader.position.x}vmin, ${invader.position.y}vmin)`
+            invader.htmlElem.style.zIndex = '2';
             grid.appendChild(invader.htmlElem)
             invaders.push(invader)
         }
@@ -47,7 +48,6 @@ function createInvaders() {
 
 // movement
 function moveInvaders() {
-    const vmin = Math.min(window.innerWidth, window.innerHeight) / 100
     let edgeReached = false
 
     invaders.forEach(invader => {

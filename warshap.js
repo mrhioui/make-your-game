@@ -14,12 +14,13 @@ const warShip = {
         div.style.backgroundImage = 'url(/imgs/warship.png)';
         div.style.backgroundSize = 'contain';
         div.style.backgroundRepeat = 'no-repeat';
+        div.style.zIndex = '2';
         return div;
     })(),
     width: 6,
     height: 6,
     position: {
-        x: (frame.width - 20) / 2,
+        x: (frame.width -5) / 2,
         y: frame.height - 15
     },
     speedX: 0.7
@@ -31,7 +32,7 @@ const warShip = {
 const moveWarship = () => {
     if (keys.left && warShip.position.x >= 1) {
         warShip.speedX = -0.7
-    } else if (keys.right && warShip.position.x + 6 <= frame.width - 18) {
+    } else if (keys.right && warShip.position.x + 6 <= frame.width ) {
         warShip.speedX = 0.7
     } else {
         warShip.speedX = 0
@@ -48,7 +49,7 @@ const warshipShoot = () => {
         width: 2,
         height: 2,
         position: {
-            x: warShip.position.x + 1.8,
+            x: warShip.position.x+1.5,
             y: warShip.position.y
         },
         speedY: -1
